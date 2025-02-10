@@ -5,13 +5,16 @@ import Items from "./Items";
 const App = () => {
   return (
     <div>
-      <header className="floating-header">
-        <h1 className="logo-text">BreveLine</h1>
-      </header>
+      <div className="logo">
+        <h1>BrevéLine</h1>
+      </div>
 
-      <Items />
+      <div>
+        <Items />
+      </div>
     </div>
   );
 };
+
 
 export default App;
