@@ -23,15 +23,19 @@ const fetchMenuData = async () => {
       throw new Error(`Error fetching menu addons: ${menuAddonsError.message}`);
 
     const combinedData = menuData.map((menuItem) => {
-      const matchingSizes = menuSizesData.filter(
-        (size) => size.item_id === menuItem.item_id
-      );
-
+      const matchingSizes = menuSizesData
+        .filter((size) => size.item_id === menuItem.item_id)
+        .map((size) => ({
+          size_id: size.size_id,
+          name: size.name,
+          size_price: size.size_price,
+        }));
+    
       const minPrice =
         matchingSizes.length > 0
           ? Math.min(...matchingSizes.map((size) => size.size_price))
           : 0;
-
+    
       const matchingAddons = menuAddonsData
         .filter((addon) => addon.item_id === menuItem.item_id)
         .map((addon) => ({
@@ -39,7 +43,7 @@ const fetchMenuData = async () => {
           addon_name: addon.addon_name,
           addon_price: addon.addon_price,
         }));
-
+    
       return {
         item_id: menuItem.item_id,
         item_name: menuItem.item_name,
@@ -48,10 +52,10 @@ const fetchMenuData = async () => {
         item_preptime_max: menuItem.item_preptime_max,
         item_category: menuItem.item_category,
         item_price: minPrice,
-        addons: matchingAddons, 
+        sizes: matchingSizes,
+        addons: matchingAddons,
       };
     });
-
     console.log("Fetched Menu Data:", combinedData);
 
     return combinedData;

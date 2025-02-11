@@ -30,19 +30,22 @@ const Items = () => {
     setIsModalOpen(false);
     setSelectedItem(null);
   };
+  
 
   return (
     <div className="container">
       {categories.map((category, index) => (
         <div key={index} className="category-container">
           <h3 className="category">{category}</h3>
+          
           <div className="items-group">
             {menuItems
               .filter((item) => item.item_category === category)
               .map((item) => (
                 <div key={item.item_id} className="item-card">
                   <div className="item-details">
-                    <img src={`images/${item.item_id}.png`} alt={item.item_name} className="item-image" />
+                  <img src={`${process.env.PUBLIC_URL}/images/${item.item_id}.png`} alt={item.item_name} className="item-image" />
+
                     <div className="text-content">
                       <h2 className="item-name">{item.item_name}</h2>
                       <p className="eta">{item.item_preptime_min}-{item.item_preptime_max} minutes</p>

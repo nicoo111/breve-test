@@ -97,3 +97,11 @@ hr {
   margin: 20px 0; 
 }
 
+.add-to-cart-button {
+  background-color: #8b4513;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 2px;
+  cursor: pointer;
+}
