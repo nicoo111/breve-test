@@ -19,8 +19,31 @@ const ProductDetailsModal = ({ isOpen, closeModal, selectedItem }) => {
         <p className="modal-subtitle">{selectedItem.item_preptime_min} - {selectedItem.item_preptime_max} minutes</p>
         <img src={`images/${selectedItem.item_id}.png`} alt={selectedItem.item_name} className="modal-image" />
 
+<<<<<<< Updated upstream
         <p className="modal-description">{selectedItem.item_description}</p>
         <hr className="modal-divider" />
+=======
+        <div className="module-image-container">
+          <img 
+            src={`/images/${selectedItem.item_id}.png`} 
+            alt={selectedItem.item_name} 
+            className="module-image"
+            onError={(e) => { console.error('Image not found:', e.target.src); }}
+          />
+        </div>
+
+          <div className="module-info">
+            <p className="module-subtitle">
+              {selectedItem.item_preptime_min} - {selectedItem.item_preptime_max} minutes
+            </p>
+            <p className="module-description">{selectedItem.item_description}</p>
+          </div>
+        </div>
+
+        <hr className="module-divider" />
+
+        <div className="module-options">
+>>>>>>> Stashed changes
 
         {/* Options Section */}
         <div className="modal-options">

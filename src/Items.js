@@ -34,12 +34,14 @@ const Items = () => {
   return (
     <div className="container">
       {categories.map((category, index) => (
+        
         <div key={index} className="category-container">
           <h3 className="category">{category}</h3>
           <div className="items-group">
             {menuItems
               .filter((item) => item.item_category === category)
               .map((item) => (
+                
                 <div key={item.item_id} className="item-card">
                   <div className="item-details">
                     <img src={`images/${item.item_id}.png`} alt={item.item_name} className="item-image" />

@@ -39,7 +39,21 @@ body {
   max-height: 95vh;
   overflow-y: auto; 
   display: flex;
+<<<<<<< Updated upstream
   flex-direction: column; 
+=======
+  align-items: center; 
+  justify-content: flex-start;
+  gap: 15px;
+  margin-top: 10px;
+  flex-wrap: nowrap; 
+}
+
+.module-container {
+  background-color: #c29c79;
+  width: 90%;
+  max-width: 350px;
+>>>>>>> Stashed changes
   border-radius: 12px;
   padding: 20px;
   position: relative;
@@ -52,7 +66,11 @@ body {
   background: none;
   border: none;
   font-size: 24px;
+<<<<<<< Updated upstream
   color: #888;
+=======
+  color: #4f2b1d;
+>>>>>>> Stashed changes
   cursor: pointer;
 }
 
@@ -74,16 +92,37 @@ body {
   font-size: 1rem;
 }
 
+<<<<<<< Updated upstream
 .modal-image {
+=======
+.module-image-container {
+  flex: 0 0 40%; 
+  max-width: 40%;
+  min-width: 150px; 
+}
+
+.module-image {
+>>>>>>> Stashed changes
   width: 100%;
   border-radius: 10px;
   margin: 15px 0;
 }
 
+<<<<<<< Updated upstream
 .modal-description {
   text-align: center;
   margin-bottom: 20px;
   color: #555;
+=======
+.module-info {
+  flex: 1 1 50%;
+  min-width: 150px; 
+  word-break: break-word; 
+}
+
+.module-description {
+  color: #44210a;
+>>>>>>> Stashed changes
   font-size: 1rem;
 }
 
@@ -100,7 +139,46 @@ body {
 .modal-options .option label {
   display: block;
   font-weight: bold;
+<<<<<<< Updated upstream
   margin-bottom: 8px;
+=======
+  color: #6b4226;
+}
+
+.option {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.option label {
+  font-weight: bold;
+  color: #44210a;
+}
+
+.size-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 5px;
+  color: white;
+}
+
+.size-button {
+  background-color: #4f2b1d;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: white;
+  transition: background-color 0.2s;
+}
+
+.size-button:hover {
+  background-color: #d7b899;
+  color: #44210a;
+>>>>>>> Stashed changes
 }
 
 .buttons,
