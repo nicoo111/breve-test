@@ -31,7 +31,7 @@ const Items = () => {
               .map((item) => (
                 <div key={item.item_id} className="item-card">
                   <div className="item-details">
-                  <img src={`/5.png`} alt={item.item_name} className="item-image" />
+                  <img src={`images/${item.item_id}.png`} alt={item.item_name} className="item-image" />
                   {/*  <img src="./5" alt={item.item_name} className="item-image" />*/}
                     <div className="text-content">
                       <h2 className="item-name">{item.item_name}</h2>
