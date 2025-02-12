@@ -136,10 +136,11 @@ body {
 
 .quantity-controls {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end; 
   align-items: center;
   gap: 10px;
 }
+
 
 .quantity-button {
   background-color: #4f2b1d;
