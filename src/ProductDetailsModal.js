@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./ProductDetailsModal.css";
 
 const ProductDetailsModal = ({ isOpen, closeModal, selectedItem }) => {
-  if (!isOpen || !selectedItem) return null;
 
-  //////pang initailize lang toh mga boss sa price////////
-  const firstPrice = selectedItem.sizes?.length > 0 ? selectedItem.sizes[0].price : "0.00";
+  //const initialPrice = selectedItem?.sizes?.length > 0 ? selectedItem.sizes[0].price : 0.00;
+  const [selectedPrice, setSelectedPrice] = useState(0.00);
+  const [quantity, setQuantity] = useState(0);
+
+  const qtyIncrement = () => setQuantity(quantity + 1);
+  const qtyDecrement = () => setQuantity(quantity > 0 ? quantity - 1 : 0);
+
+  useEffect(() => {
+    if (selectedItem?.sizes?.length > 0) {
+      setSelectedPrice(selectedItem.sizes[0].price);
+      setQuantity(0);
+    } else {
+      setSelectedPrice(0.00);
+    }
+  }, [selectedItem]);
+
+  if (!isOpen || !selectedItem) return null;
 
   return (
     <div className="module-overlay">
@@ -16,9 +30,7 @@ const ProductDetailsModal = ({ isOpen, closeModal, selectedItem }) => {
         <div className="module-content">
           <div className="module-image-container">
             <img 
-              src={`/images/${selectedItem.item_id}..png`} 
-              alt={selectedItem.item_name} 
-              className="module-image"
+              src={`/images/${selectedItem.item_id}..png`} alt={selectedItem.item_name} className="module-image"
               onError={(e) => { console.error('Image not found:', e.target.src); }}
             />
           </div>
@@ -39,7 +51,9 @@ const ProductDetailsModal = ({ isOpen, closeModal, selectedItem }) => {
             <div className="size-buttons">
               {selectedItem.sizes?.length > 0 ? (
                 selectedItem.sizes.map((size, index) => (
-                  <button key={index} className="size-button">
+                  <button key={index} className="size-button" 
+                    onClick={() => setSelectedPrice(size.price)} 
+                  >
                     {size.size}
                   </button>
                 ))
@@ -51,9 +65,9 @@ const ProductDetailsModal = ({ isOpen, closeModal, selectedItem }) => {
           <div className="option">
             <label>Order Quantity:</label>
             <div className="quantity-controls">
-              <button className="quantity-button">-</button>
-              <span className="quantity-display">0</span>
-              <button className="quantity-button">+</button>
+              <button className="quantity-button" onClick={qtyDecrement} >-</button>
+              <span className="quantity-display">{quantity}</span>
+              <button className="quantity-button" onClick={qtyIncrement} >+</button>
             </div>
           </div>
           <div className="option">
@@ -80,7 +94,7 @@ const ProductDetailsModal = ({ isOpen, closeModal, selectedItem }) => {
         <input type="text" placeholder="Special Instructions (e.g., 50% sugar)" />
 
         <div className="price-confirm">
-        <h2 className="module-price">Php {firstPrice.toFixed(2)}</h2>
+        <h2 className="module-price">Php {selectedPrice.toFixed(2)}</h2>
 
           <button className="confirm-button">Confirm</button>
         </div>
