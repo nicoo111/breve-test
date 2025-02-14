@@ -1,64 +1,87 @@
+
 import supabase from "./SupabaseClient";
+
 
 const fetchMenuData = async () => {
   try {
-
     const { data: menuData, error: menuError } = await supabase
       .from("menu")
       .select("*");
     if (menuError) throw new Error(`Error fetching menu: ${menuError.message}`);
 
-
-    const { data: menuSizesData, error: menuSizesError } = await supabase
-      .from("menu_sizes")
+    const { data: itemSizesData, error: itemSizesError } = await supabase
+      .from("item_size")
       .select("*");
-    if (menuSizesError)
-      throw new Error(`Error fetching menu sizes: ${menuSizesError.message}`);
+    if (itemSizesError) throw new Error(`Error fetching sizes: ${itemSizesError.message}`);
 
-
-    const { data: menuAddonsData, error: menuAddonsError } = await supabase
-      .from("menu_addons")
+    const { data: itemAddonsData, error: itemAddonsError } = await supabase
+      .from("item_addon")
       .select("*");
-    if (menuAddonsError)
-      throw new Error(`Error fetching menu addons: ${menuAddonsError.message}`);
+    if (itemAddonsError) throw new Error(`Error fetching add-ons: ${itemAddonsError.message}`);
 
-    const combinedData = menuData.map((menuItem) => {
-      const matchingSizes = menuSizesData
-        .filter((size) => size.item_id === menuItem.item_id)
-        .map((size) => ({
-          size_id: size.size_id,
-          name: size.name,
-          size_price: size.size_price,
-        }));
-    
-      const minPrice =
-        matchingSizes.length > 0
-          ? Math.min(...matchingSizes.map((size) => size.size_price))
-          : 0;
-    
-      const matchingAddons = menuAddonsData
-        .filter((addon) => addon.item_id === menuItem.item_id)
-        .map((addon) => ({
-          addon_id: addon.addon_id,
-          addon_name: addon.addon_name,
-          addon_price: addon.addon_price,
-        }));
-    
-      return {
-        item_id: menuItem.item_id,
-        item_name: menuItem.item_name,
-        item_description: menuItem.item_description,
-        item_preptime_min: menuItem.item_preptime_min,
-        item_preptime_max: menuItem.item_preptime_max,
-        item_category: menuItem.item_category,
-        item_price: minPrice,
-        sizes: matchingSizes,
-        addons: matchingAddons,
-      };
+    const { data: itemAddonListData, error: itemAddonListError } = await supabase
+      .from("item_addon_list")
+      .select("*");
+    if (itemAddonListError) throw new Error(`Error fetching add-on lists: ${itemAddonListError.message}`);
+
+    //pang array
+    const groupedMenu = {};
+
+    menuData.forEach((menuItem) => {
+      const {
+        item_id,
+        item_name,
+        item_description,
+        item_category,
+        isavailable,
+        item_preptime_min,
+        item_preptime_max,
+        item_size_id,
+        item_price
+      } = menuItem;
+
+      if (!groupedMenu[item_name]) {
+        groupedMenu[item_name] = {
+          item_id,
+          item_name,
+          item_description,
+          item_category,
+          is_available: isavailable,
+          item_preptime_min,
+          item_preptime_max,
+          sizes: [],
+          addons: []
+        };
+      }
+
+      const matchingSize = itemSizesData.find(size => size.item_size_id === item_size_id);
+      groupedMenu[item_name].sizes.push({
+        size: matchingSize ? matchingSize.size_name : "Unknown",
+        price: item_price
+      });
+
+
+      const matchingAddonIds = itemAddonListData
+        .filter(list => list.item_id === item_id)
+        .map(list => list.item_addon_id);
+      const matchingAddons = itemAddonsData.filter(addon => matchingAddonIds.includes(addon.item_addon_id));
+
+      matchingAddons.forEach(addon => {
+        if (!groupedMenu[item_name].addons.some(a => a.addon_id === addon.item_addon_id)) {
+          groupedMenu[item_name].addons.push({
+            addon_id: addon.item_addon_id,
+            addon_name: addon.addon_name,
+            addon_price: addon.addon_price
+          });
+        }
+      });
     });
-    console.log("Fetched Menu Data:", combinedData);
 
-    return combinedData;
+    // nagawan array
+    const finalMenuData = Object.values(groupedMenu);
+
+    console.log("Fetched Menu Data:", finalMenuData);
+    return finalMenuData;
   } catch (error) {
     console.error("Error fetching menu data:", error.message);
     return [];

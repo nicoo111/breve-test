@@ -232,3 +232,8 @@ input[type="text"] {
 .confirm-button:hover {
   background-color: #56351f;
 }
+
+.no-sizes {
+  color: white;
+  font-style: italic;
+}

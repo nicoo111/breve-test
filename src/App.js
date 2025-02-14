@@ -1,8 +1,10 @@
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from 'react';
 import './App.css';
 import Items from "./Items";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+
+//baka mawala image pre yun filenamekasi dalawa yung period
 
 const App = () => {
   return (

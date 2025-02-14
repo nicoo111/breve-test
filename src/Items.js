@@ -3,12 +3,11 @@ import "./Items.css";
 import ProductDetailsModal from "./ProductDetailsModal";
 import fetchMenuData from "./fetchMenuData";
 
-
 const Items = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [selectedItem, setSelectedItem] = useState(null); 
-  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const getMenuData = async () => {
@@ -43,13 +42,13 @@ const Items = () => {
               .map((item) => (
                 <div key={item.item_id} className="item-card">
                   <div className="item-details">
-                    <img src={`images/${item.item_id}.png`} alt={item.item_name} className="item-image" />
+                    <img src={`images/${item.item_id}..png`} alt={item.item_name} className="item-image" />
                     <div className="text-content">
                       <h2 className="item-name">{item.item_name}</h2>
                       <p className="eta">{item.item_preptime_min}-{item.item_preptime_max} minutes</p>
                       <p className="description">{item.item_description}</p>
                       <div className="bottom-row">
-                        <p className="price">Php {item.item_price.toFixed(2)}</p>
+                        <p className="price">Php {item.sizes.length > 0 ? item.sizes[0].price.toFixed(2) : "N/A"}</p>
                         <button className="add-to-cart-button" onClick={() => openModal(item)}>+</button>
                       </div>
                     </div>
