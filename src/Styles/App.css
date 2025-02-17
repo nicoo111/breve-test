@@ -52,5 +52,14 @@
   text-align: center;
   width: 100%;
   max-width: 60px;
+  cursor: pointer;
 }
 
+.floating-cart.modal-open {
+  z-index: -1;
+}
+
+.cart-icon {
+  font-size: 24px;
+  color: white;
+}

@@ -3,7 +3,7 @@ import ProductDetailsModal from "./ProductDetailsModal";
 import "./Styles/Items.css";
 import fetchMenuData from "./fetchMenuData";
 
-const Items = () => {
+const Items = ({ onOpenItem, onCloseItem }) => {
   const [menuItems, setMenuItems] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -23,11 +23,13 @@ const Items = () => {
   const openModal = (item) => {
     setSelectedItem(item);
     setIsModalOpen(true);
+    onOpenItem(); 
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedItem(null);
+    onCloseItem();
   };
 
   return (
