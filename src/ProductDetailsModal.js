@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import postCartData from "./PostCartData";
-import "./ProductDetailsModal.css";
+import "./Styles/ProductDetailsModal.css";
 
 const ProductDetailsModal = ({ isOpen, closeModal, selectedItem }) => {
   const [selectedPrice, setSelectedPrice] = useState(0.0);

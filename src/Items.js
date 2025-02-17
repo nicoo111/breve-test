@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "./Items.css";
 import ProductDetailsModal from "./ProductDetailsModal";
+import "./Styles/Items.css";
 import fetchMenuData from "./fetchMenuData";
 
 const Items = () => {
